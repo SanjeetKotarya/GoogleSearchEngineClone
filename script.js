@@ -17,8 +17,24 @@ query.addEventListener("keyup", function(event){
     
 });
 
-var mic = document.getElementById('speechinput');
-mic.onfocus = mic.blur;
-mic.onwebkitspeechchange = function(e) {
-document.getElementById('mytextarea').value = speechinput .value;  
-};
+function startDictation() {
+
+    if (window.hasOwnProperty('webkitSpeechRecognition')) {
+
+      var recognition = new webkitSpeechRecognition();
+
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = 'en-US';
+      recognition.start();
+
+      recognition.onresult = function (e) {
+        query.value = e.results[0][0].transcript;
+        recognition.stop();
+        gobtn.submit();
+      };
+      recognition.onerror = function(e) {
+        recognition.stop();
+      }
+    }
+  }
