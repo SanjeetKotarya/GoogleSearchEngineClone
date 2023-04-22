@@ -81,6 +81,9 @@
   .search__input .material-icons {
     color: gray;
   }
+  .search__input i{
+    cursor: pointer;
+  }
   
   .search__buttons {
     margin-top: 30px;
